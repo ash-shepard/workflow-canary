@@ -1,0 +1,37 @@
+name: 'Workflow Canary'
+description: 'split traffic on steps or jobs by proportion!'
+inputs:
+  percentage:  
+    description: 'an integer between 0 and 100, to represent the amount of traffic'
+    required: true
+
+outputs:
+  canary-return:
+    description: "boolean value indicating whether to proceed"
+    value: ${{ steps.tweet.outputs.version }}
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v4
+    - name: checkout github code
+      shell: bash
+      run: |
+        echo "pwd $(pwd)"
+        echo "----"
+        ls .
+
+    - name: check canary
+      shell: bash
+      id: tweet
+      run: |
+        echo "checking canary"
+        echo "percentage: ${{ inputs.percentage }}"
+        echo "----"
+        if [ $((RANDOM % 100)) -lt ${{ inputs.percentage }} ]; then
+          echo "we will proceed!"
+          echo "::set-output name=version::true"
+        else
+          echo "we will not proceed!"
+          echo "::set-output name=version::false"
+        fi
