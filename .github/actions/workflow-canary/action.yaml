@@ -8,7 +8,7 @@ inputs:
 outputs:
   canary:
     description: "boolean value indicating whether to proceed"
-    value: ${{ steps.tweet.outputs.version }}
+    value: ${{ steps.tweet.outputs.canary }}
 
 runs:
   using: "composite"
