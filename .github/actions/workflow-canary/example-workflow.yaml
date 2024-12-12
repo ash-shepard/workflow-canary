@@ -1,0 +1,29 @@
+# This workflow demonstrates how to use the workflow canary action
+name: Example Workflow for using the workflow canary!
+
+on:
+  workflow_dispatch:
+
+jobs:
+   checkout:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Workflow Canary
+        uses: .github/actions/workflow-canary@main
+        with: 
+          percentage: 10
+
+      - name: Check Canary
+        run: |
+          echo "canary: ${{ steps.checkout.outputs.canary-return }}"
+
+      - name: run if canary is true
+        if: ${{ steps.checkout.outputs.canary == 'true' }}
+        run: |
+          echo "hello world. We should only run this step if canary is true."
+
+      - name: run if canary is false
+        if: ${{ steps.checkout.outputs.canary == 'false' }}
+        run: |
+          echo "hello again, world. We should only see this if canary is false."
+

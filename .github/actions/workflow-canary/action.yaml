@@ -6,7 +6,7 @@ inputs:
     required: true
 
 outputs:
-  canary-return:
+  canary:
     description: "boolean value indicating whether to proceed"
     value: ${{ steps.tweet.outputs.version }}
 
