@@ -1,5 +1,5 @@
 # This workflow demonstrates how to use the workflow canary action
-name: Example Workflow for using the workflow canary!
+name: Workflow Canary Test
 
 on:
   workflow_dispatch:
@@ -19,8 +19,14 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: looksie
+        run: |
+          echo "pwd $(pwd)"
+          echo "----"
+          ls .    
+
       - name: Workflow Canary
-        uses: .github/actions/workflow-canary@main
+        uses: ./.github/actions/workflow-canary@main
         with: 
           percentage: 10
 
