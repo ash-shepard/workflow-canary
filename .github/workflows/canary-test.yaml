@@ -5,14 +5,14 @@ on:
   workflow_dispatch:
 
 jobs:
-   checkout:
+  canary-test:
     runs-on: ubuntu-latest
     steps: 
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Workflow Canary
-        uses: ash-shepard/.github/actions/workflow-canary@main
+        uses: .github/actions/workflow-canary@main
         with: 
           percentage: 10
 
