@@ -43,3 +43,7 @@ runs:
           echo $CANARY
           echo "canary=$CANARY" >> $GITHUB_OUTPUT
         fi
+
+    - name: echo canary
+      run: |
+        echo "canary in action: ${{ steps.tweet.outputs.canary }}"
