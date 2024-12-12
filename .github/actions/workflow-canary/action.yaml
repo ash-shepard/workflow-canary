@@ -34,10 +34,10 @@ runs:
 
         if [ $RANDOM -lt ${{ inputs.percentage }} ]; then
           echo "we will proceed!"
-          CANARY=true
+          CANARY='true'
           echo "canary=$CANARY" >> $GITHUB_OUTPUT
         else
           echo "we will not proceed!"
-          CANARY=false
+          CANARY='false'
           echo "canary=$CANARY" >> $GITHUB_OUTPUT
         fi
