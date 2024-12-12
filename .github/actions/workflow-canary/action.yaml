@@ -28,11 +28,11 @@ runs:
         echo "checking canary"
         echo "percentage: ${{ inputs.percentage }}"
         echo "----"
-        RANDOM=$((RANDOM % 100))
-        echo "random number: $RANDOM"
+        checkNum=$((RANDOM % 100))
+        echo "random number: $checkNum"
         echo "----"
 
-        if [ $RANDOM -lt ${{ inputs.percentage }} ]; then
+        if [ $checkNum -lt ${{ inputs.percentage }} ]; then
           echo "we will proceed!"
           CANARY='true'
           echo $CANARY
