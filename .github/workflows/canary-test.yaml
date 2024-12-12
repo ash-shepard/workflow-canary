@@ -10,9 +10,9 @@ jobs:
     steps: 
       - name: Checkout code
         uses: actions/checkout@v4
-        
+
       - name: Workflow Canary
-        uses: .github/actions/workflow-canary@main
+        uses: ../.github/actions/workflow-canary@main
         with: 
           percentage: 10
 
