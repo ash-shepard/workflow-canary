@@ -30,8 +30,8 @@ runs:
         echo "----"
         if [ $((RANDOM % 100)) -lt ${{ inputs.percentage }} ]; then
           echo "we will proceed!"
-          echo "::set-output name=version::true"
+          echo "canary=true" >> $GITHUB_OUTPUT
         else
           echo "we will not proceed!"
-          echo "::set-output name=version::false"
+          echo "canary=false" >> $GITHUB_OUTPUT
         fi
