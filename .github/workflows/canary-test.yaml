@@ -4,12 +4,20 @@ name: Example Workflow for using the workflow canary!
 on:
   workflow_dispatch:
 
+permissions:
+  actions: read
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   canary-test:
     runs-on: ubuntu-latest
     steps: 
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Workflow Canary
         uses: .github/actions/workflow-canary@main
