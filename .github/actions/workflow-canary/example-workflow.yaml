@@ -1,29 +1,46 @@
 # This workflow demonstrates how to use the workflow canary action
-name: Example Workflow for using the workflow canary!
+name: Workflow Canary Test?
 
 on:
   workflow_dispatch:
 
+permissions:
+  actions: read
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
-   checkout:
+  canary-test:
     runs-on: ubuntu-latest
     steps: 
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ github.token }}
+
+      - name: looksie
+        run: |
+          echo "pwd $(pwd)"
+          echo "----"
+          ls . 
+
       - name: Workflow Canary
-        uses: .github/actions/workflow-canary@main
+        id: check
+        uses: ash-shepard/workflow-canary/.github/actions/workflow-canary@main
         with: 
-          percentage: 10
+          percentage: 50
 
       - name: Check Canary
         run: |
-          echo "canary: ${{ steps.checkout.outputs.canary-return }}"
+          echo "canary: ${{ steps.check.outputs.canary }}"
 
       - name: run if canary is true
-        if: ${{ steps.checkout.outputs.canary == 'true' }}
+        if: ${{ steps.check.outputs.canary == 'true' }}
         run: |
           echo "hello world. We should only run this step if canary is true."
 
       - name: run if canary is false
-        if: ${{ steps.checkout.outputs.canary == 'false' }}
+        if: ${{ steps.check.outputs.canary == 'false' }}
         run: |
           echo "hello again, world. We should only see this if canary is false."
-
